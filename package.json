@@ -1,0 +1,19 @@
+{
+  "name": "angularmean",
+  "version": "1.0.0",
+  "description": "MEAN stack auth app ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleepydistrict/angularMEAN.git"
+  },
+  "author": "Gregory Lesky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sleepydistrict/angularMEAN/issues"
+  },
+  "homepage": "https://github.com/sleepydistrict/angularMEAN#readme"
+}
