@@ -11,6 +11,10 @@ mongoose.connection.on('connected', () => {
   console.log('Connected to database ' +config.database);
 })
 
+mongoose.connection.on('error', (err) => {
+  console.log('Woops, there was a database error ' +config.database);
+})
+
 const app = express();
 
 const users = require('./routes/users');
