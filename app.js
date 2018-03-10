@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); //request to api from dif domain name
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const passport = require('passport')
 
 mongoose.connect(config.database);
 
@@ -29,6 +30,12 @@ app.use(express.static(path.join(__dirname, 'piblic')));
 
 //Body Parser Middleware
 app.use(bodyParser.json());
+
+//Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 app.use('/users', users);
 
