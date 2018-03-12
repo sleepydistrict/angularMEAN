@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 
-//Register
+// Register
 router.post('/register', (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
@@ -16,56 +16,51 @@ router.post('/register', (req, res, next) => {
 
   User.addUser(newUser, (err, user) => {
     if(err){
-      res.json({success: false, msg: 'Im sorry, I was unable to register a new user'});
+      res.json({success: false, msg:'Failed to register user'});
     } else {
-      res.json({success: true, msg: 'Welcome New User!'});
+      res.json({success: true, msg:'User registered'});
     }
-  })
+  });
 });
 
-//Auth
-router.get('/auth', (req, res, next) => {
+// Authenticate
+router.post('/auth', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-
-  User.getUserByName(username, (err, user) => {
+      
+  User.getUserByUserName(username, (err, user) => {
     if(err) throw err;
     if(!user){
-      return res.json({success: false, msg: 'Im sorry, that user was not found'});
+      return res.json({success: false, msg: 'User not found'});
     }
 
-    User.comparePassword(password, user.password, (eer, isMatch) => {
+    User.comparePassword(password, user.password, (err, isMatch) => {
       if(err) throw err;
       if(isMatch){
-        const token = jwt.sign(data.user, config.secret, {
-          expiresIn: 604800 //1 week
+        const token = jwt.sign({data: user}, config.secret, {
+          expiresIn: 604800 // 1 week
         });
 
         res.json({
           success: true,
-          token: 'Bearer ' +token,
+          token: `Bearer ${token}`,
           user: {
-            id: data.user._id,
-            name: data.user.name,
-            username: data.user.username,
-            email: data.user.email
+            id: user._id,
+            name: user.name,
+            username: user.username,
+            email: user.email
           }
         });
       } else {
-        return res.json({success: flase, msg: 'Im sorry, that password is incorrect'});
+        return res.json({success: false, msg: 'Wrong password'});
       }
     });
   });
 });
 
-//Profile
-router.get('/profile', (req, res, next) => {
-  res.send('PROFILE');
+// Profile
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+  res.json({user: req.user});
 });
-
-// router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-//   res.json({user: req.user});
-// });
-
 
 module.exports = router;
