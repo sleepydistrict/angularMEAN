@@ -1,3 +1,28 @@
-<p>
-  home works!
-</p>
+<style>
+  #home {
+  padding-top: 25%;
+}
+</style>
+<div class="jumbotron text-center" id="home">
+  <h1>Mean Auth App</h1>
+  <p class="lead">Welcome to our custom MEAN application. built form scratch over a weekend</p>
+  <div>
+    <a class="btn btn-primary" [routerLink]="['/register']">Register</a>
+    <a class="btn" [routerLink]="['/login']">Login</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3>Express Backend</h3>
+    <p>A solid Node.js/Express Server using Mongoose to organize models and query the database</p>
+  </div>
+  <div class="col-md-4">
+    <h3>Angular CLI</h3>
+    <p>Angular-CLI to generate components, services, and more, Local dev server and easy compilation</p>
+  </div>
+  <div class="col-md-4">
+    <h3>JWT Tokens</h3>
+    <p>Full featured authentification isong JSON web tokens. Login and store user data</p>
+  </div>
+</div>
